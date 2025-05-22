@@ -3,167 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Timetable Guidelines</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap" rel="stylesheet">
+    <title>Amity University - Flexible Timetable Registration Guidelines</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-           background-color: 
-           }       
-       header {
-            background-color: Navy;
-            color: #fff;
-            padding: 15px 20px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        /* Define Amity University Brand Colors and Shadows */
+        :root {
+            --navy-blue: #000080; /* Amity Blue */
+            --amity-yellow: #FFC000; /* Amity Gold/Yellow */
+            --light-gray: #f4f7f6;
+            --dark-text: #2c3e50; /* Darker for headings */
+            --medium-text: #555;
+            --white: #ffffff;
+            --soft-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            --strong-shadow: 0 10px 30px rgba(0,0,0,0.15);
         }
-        header nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            gap: 15px;
+
+        /* Custom Tailwind-like animations for background */
+        @keyframes gradient-xy {
+            0%, 100% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
         }
+        .animate-gradient-xy {
+            animation: gradient-xy 15s ease infinite;
+            background-size: 400% 400%;
+        }
+
+        /* Existing custom styles, adapted for Tailwind context where necessary */
         header nav ul li a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease, transform 0.2s ease;
         }
-        .hero {
-            background-color: #FFC000;
-            color: #fff;
-            padding: 60px 20px;
-            text-align: center;
+
+        header nav ul li a::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -5px;
+            width: 0;
+            height: 2px;
+            background-color: var(--amity-yellow);
+            transition: width 0.3s ease-out, left 0.3s ease-out;
         }
-        .hero h1 {
-            font-size: 2.5em;
-            margin: 0 0 15px;
-        }
-        .content {
-            padding: 40px 20px;
-            max-width: 1000px;
-            margin: 0 auto;
-            background-color: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-        .content h2 {
-            font-size: 2em;
-            margin-bottom: 20px;
-            color: #333;
-        }
-        .content ul {
-            line-height: 1.8;
-            color: #555;
-        }
-        .timetable-img {
+
+        header nav ul li a:hover::after {
             width: 100%;
-            max-width: 600px;
-            display: block;
-            margin: 30px auto;
-            border-radius: 12px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            left: 0;
         }
-        footer {
-            background-color: Navy;
-            color: #fff;
-            text-align: center;
-            padding: 15px 20px;
-            margin-top: 30px;
+
+        header nav ul li a:hover {
+            color: var(--amity-yellow);
+            transform: translateY(-2px);
+        }
+
+        /* Custom styling for definition list (dl) and ordered list (ol) */
+        .content dl {
+            border-left: 5px solid var(--amity-yellow);
+            background-color: #fffaf0; /* Light yellow background for definition list */
+            box-shadow: var(--soft-shadow);
+        }
+
+        .content dd::before {
+            content: '➤'; /* Custom bullet point */
+            color: var(--amity-yellow);
+            position: absolute;
+            left: 0;
+            font-size: 0.8em;
+            top: 5px;
+        }
+
+        .content ol li {
+            position: relative;
+        }
+
+        .content ol li::before {
+            content: counter(list-item) "."; /* Automatic numbering */
+            counter-increment: list-item;
+            position: absolute;
+            left: 0;
+            font-weight: 700;
+            color: var(--navy-blue);
+            font-size: 1.1em;
+            width: 30px;
+            text-align: right;
+            top: 0; /* Align with text */
         }
     </style>
 </head>
-<body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#guidelines">Guidelines</a></li>
-        
+<body class="bg-gray-100 font-sans text-gray-700 leading-relaxed scroll-smooth">
 
+    <header class="bg-blue-900 text-white py-4 px-5 sticky top-0 z-50 shadow-md">
+        <nav>
+            <ul class="flex flex-col md:flex-row justify-center gap-6 md:gap-10 list-none p-0 m-0">
+                <li><a href="#" class="text-white text-lg font-semibold font-montserrat no-underline">Home</a></li>
+                <li><a href="#guidelines" class="text-white text-lg font-semibold font-montserrat no-underline">Guidelines</a></li>
             </ul>
         </nav>
     </header>
 
-    <section class="hero">
-        <img src="amitylogo.jpg" alt="Amity Logo" width="800px" height="300px">
-       
+    <section class="content p-8 md:p-12 max-w-5xl mx-auto my-10 bg-white rounded-xl shadow-xl">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-blue-900 text-center mb-4 font-montserrat drop-shadow-sm">Welcome to the Flexible Timetable Registration</h1>
+        <h3 class="text-xl md:text-2xl font-semibold text-yellow-500 text-center mb-10 font-montserrat">Empowering Your Academic Journey at Amity University</h3>
+        <p class="mb-5 text-lg">Amity University proudly offers <strong class="font-bold">flexible timetable options</strong> to its students, empowering you to design your academic schedule according to your individual needs and aspirations. This innovative system allows you to select courses that align with your interests and manage your time effectively, fostering a truly personalized and balanced educational experience.</p>
+
+        <dl class="mt-8 mb-8 pl-6 py-5 rounded-lg">
+            <dt class="font-bold text-xl text-blue-900 mb-2 font-montserrat">Choice-based Credit System:</dt>
+            <dd class="ml-0 mb-4 pl-5 text-lg relative">Amity University operates on a dynamic <strong class="font-semibold">choice-based credit system</strong>, providing you with the autonomy to select courses and craft your academic planning worksheet, thereby gaining greater control over your educational path.</dd>
+
+            <dt class="font-bold text-xl text-blue-900 mb-2 font-montserrat">Slot-based Timetable:</dt>
+            <dd class="ml-0 mb-4 pl-5 text-lg relative">Your course and time selections are made from a meticulously designed <strong class="font-semibold">slot-based timetable</strong>, which is readily accessible and comprehensively published on <strong class="font-semibold">Amizone</strong>, ensuring transparent and convenient planning.</dd>
+
+            <dt class="font-bold text-xl text-blue-900 mb-2 font-montserrat">Individual Timetables:</dt>
+            <dd class="ml-0 mb-4 pl-5 text-lg relative">Leveraging this system, students can generate their own unique <strong class="font-semibold">individual timetables</strong> by choosing from the available slots, guaranteeing a schedule that perfectly complements their commitments and learning style.</dd>
+
+            <dt class="font-bold text-xl text-blue-900 mb-2 font-montserrat">Flexibility in Balance:</dt>
+            <dd class="ml-0 mb-4 pl-5 text-lg relative">The inherent flexibility of this system is a cornerstone of our approach, enabling students to effectively <strong class="font-semibold">balance rigorous academic engagement with diverse personal interests, extracurricular activities, and other vital commitments</strong>, promoting holistic development and well-being.</dd>
+        </dl>
     </section>
 
-   <section class="content">
-    <h1>Welcome to the Flexible Timetable Registration</h1>
-    <h3> Flexible Timetable System </h3>
-    <p> Amity University offers flexible timetable options to its students, allowing students to create their 
-        own schedules and choose courses based on their interests and commitments. </p>
-<dl> 
-   <dt> Choice-based Credit System: </dt>
-   <dd> Amity University employs a choice-based credit system, allowing students to select their own academic 
-   planning worksheet.</dd>
-  
-   <dt>Slot-based Timetable: </dt>
-   <dd>Students choose their courses and times from a slot-based timetable, which is published on Amizone.</dd>
+    <section id="guidelines" class="content p-8 md:p-12 max-w-5xl mx-auto my-10 bg-white rounded-xl shadow-xl">
+        <h2 class="text-3xl md:text-4xl font-extrabold text-blue-900 border-b-4 border-yellow-500 pb-3 mb-8 text-left font-montserrat">Guidelines for Creating an Effective Timetable</h2>
+        <p class="mb-6 text-lg">To ensure a smooth and successful timetable registration process and to maximize your academic planning, please adhere to the following comprehensive guidelines:</p>
+        <ol class="list-none p-0 m-0 mt-6 mb-8 counter-reset-list-item">
+            <li class="mb-5 pl-9 text-lg">
+                <strong class="font-semibold">Course & Lab Slotting:</strong> Theory components of courses are strategically distributed across various designated slots (e.g., <strong class="font-semibold">A1 to G2</strong>). Similarly, all practical/lab components are assigned to specific lab slots (e.g., <strong class="font-semibold">L1 to L40</strong>). It's important to note that a single slot may contain multiple course offerings, and conversely, a single course might be offered across multiple different slots to provide maximum choice.
+            </li>
+            <li class="mb-5 pl-9 text-lg">
+                <strong class="font-semibold">Course Selection & Customization:</strong> You, as a student, possess the autonomy to decide precisely which courses you wish to register for. Once chosen, you can then select the corresponding slots that best fit your schedule. In scenarios where the same course within a single slot is delivered by multiple faculties in various classrooms, you are empowered to choose your preferred venue and faculty.
+            </li>
+            <li class="mb-5 pl-9 text-lg">
+                <strong class="font-semibold">Dedicated Assistance for Registration:</strong> Should you require any guidance or encounter challenges during the course registration process, dedicated support will be readily provided by your assigned <strong class="font-semibold">Mentor</strong> or through our accessible <strong class="font-semibold">Help Desk</strong>, conveniently located on the <strong class="font-semibold">2nd floor, Room No. 218, Computer Lab</strong>.
+            </li>
+            <li class="mb-5 pl-9 text-lg">
+                <strong class="font-semibold">Prioritization & Adaptability:</strong> It is crucial to meticulously plan your course selections and slot choices in conjunction with the pre-filled slot timetable. There may be instances where you need to exercise flexibility and make alternative choices (in course, slot, venue, or even faculty) to successfully register for a specific course you've prioritized.
+            </li>
+            <li class="mb-5 pl-9 text-lg">
+                <strong class="font-semibold">First-Come, First-Served Basis:</strong> All course registrations operate strictly on a <strong class="font-semibold">first-come, first-served basis</strong>. To maintain fairness and ensure the integrity of the registration process, <strong class="font-semibold">no proxy registrations are permitted under any circumstances</strong>. Students must register personally.
+            </li>
+            <li class="mb-5 pl-9 text-lg">
+                <strong class="font-semibold">Addressing Full Class Situations:</strong> In the event that a particular class has reached its maximum capacity, students still have the option to register for that course by exploring and selecting a different available slot or an alternative venue where space is available.
+            </li>
+            <li class="mb-5 pl-9 text-lg">
+                <strong class="font-semibold">Theory Embedded Lab (TEL) Courses - Complete Registration:</strong> For <strong class="font-semibold">Theory Embedded Lab (TEL)</strong> courses, it is imperative to understand that registration is deemed complete <strong class="font-semibold">only when both the theory component and all associated lab components are individually registered</strong>. If either the theory or any required lab component is not registered, the entire registration into that course will be considered incomplete. <strong class="font-semibold">Practical Tip:</strong> To avoid issues, upon completing registration for the theory part of a TEL course, proceed immediately to complete the registration for its corresponding lab(s) before moving on to other courses.
+            </li>
+            <li class="mb-5 pl-9 text-lg">
+                <strong class="font-semibold">Re-registration of Failed Courses:</strong> Should you need to re-register for a previously failed course, you may do so if the same course is currently being offered. Confirmation of this re-registration is contingent upon your ability to register without any timetable clashes and is strictly subject to the timely payment of applicable re-registration fees.
+            </li>
+            <li class="mb-5 pl-9 text-lg">
+                <strong class="font-semibold">Credit Range Recommendations:</strong> Students are strongly advised to register into courses recommended by their respective <strong class="font-semibold">Program School</strong>. The recommended credit range for a semester typically falls within a <strong class="font-semibold">minimum of 16 credits and a maximum of 27 credits</strong>. This range is suggested to optimize academic workload and is subject to the individual student's academic ability and personal interests.
+            </li>
+            <li class="mb-5 pl-9 text-lg">
+                <strong class="font-semibold">Guidance for Open Elective Courses:</strong> For detailed information, guidance, and assistance related to registering for <strong class="font-semibold">Open Elective courses</strong>, please do not hesitate to contact your <strong class="font-semibold">Mentor, School Timetable Coordinator, Head of Department (HoD), or Head of Institution (HoI)</strong>. They are available to provide comprehensive support.
+            </li>
+            <li class="mb-5 pl-9 text-lg">
+                <strong class="font-semibold">Final Timetable Confirmation:</strong> Upon the successful completion of the registration process for all your chosen courses (including both theory lectures and practical labs), this finalized schedule will officially serve as your <strong class="font-semibold">definitive timetable for the current semester</strong>.
+            </li>
+        </ol>
+        <p class="mb-6 text-lg">An empty slot-based timetable is provided below for your reference, demonstrating the fundamental structure of the available slots you will encounter during your registration process.</p>
 
-   <dt>Individual Timetables: </dt>
-   <dd>Students can create their own individual timetables based on the available slots.</dd>
-
-  <dt>Flexibility: </dt>
-  <dd>This system allows students to balance academic engagement with other interests, hobbies, and commitments.</dd> 
-</dl>
+        <img src="Timetable.jpg" alt="Sample Timetable Structure" class="w-full max-w-3xl block mx-auto my-12 rounded-xl shadow-xl border-2 border-gray-300 transition-transform duration-300 hover:scale-101" />
     </section>
-    <section id="guidelines" class="content">
-        <h2>Guidelines for Creating an Effective Timetable</h2>
-        <ol>
-    
-<li>Theory part of courses oAered are dropped in various slots named A1 to G2 and lab components are dropped into 
-lab slots named L1 to L40. Hence, a single slot may carry multiple courses. A single course may be offered in 
-multiple slots. 
 
-<li>Students can decide what courses they want to register and study and select the slots accordingly. In case a same 
-course dropped into a single slot is taught by multiple faculties in various classrooms, students can select one of 
-the venue/ faculty from the same slot. 
-
-<li>Students needing help in course registration will be provided by their Mentor or at Help desk (2nd floor room no. 
-218 Computer lab). 
-
-<li>Students need to choose their courses and slots in priori with a pre-filled slot timetable. At times, you may need to make a 
-different choice (in course/ slot/ venue/ faculty) to register into a specific course that you have selected.</li>
- 
-<li>Registration will be first-cum, first-served basis.No proxy is allowed.</li>
- 
-<li> In case the class is already full to the capacity, students can register that course by choosing a different slot/ 
-venue.</li>
-
-<li>In case of a Theory embedded Lab (TEL) course, the registration into the course is deemed complete only after 
-both the theory and lab(s) are individually registered. If either the theory or lab component is not registered, then, 
-the registration into that course is considered as incomplete. Tip: When you complete registration into the theory 
-part of a course, complete the Lab registration immediately, before moving to the next course registration.</li>
-
-<li> Re-registration of a failed course can be re-registered into, if the same course is offered now, and the student can 
-register into it without any clash, then, registration confirmation is subject to paying re-registration fees.</li>
-
-<li>Students are advised to register into courses recommended by their Program School and the credit range shall be 
-a minimum of 16 credits and a maximum of 27 credits and is subject to the academic ability/ interest of an 
-individual student.</li>
-
-<li> Students may contact their Mentor or School Timetable Coordinator or HoD or HoI for details related to registering 
-into Open Elective courses.</li>
-
-<li>After you complete registration of all your courses (theory & labs), this will be your final timetable for this semester. </li>
-
-</ol>
-<p>An Empty Slot-Time table is given below for reference</p>
-
-        <img src="Timetable.jpg" alt="Sample Timetable" class="timetable-img" />
-    </section>
-        
-    <footer>
-        <p> For more information contact: </p>
-                 <p> xxx-xxx-xxx </p>
-        <p>© 2025 Timetable Planner. All rights reserved.</p>
+    <footer class="bg-blue-900 text-white text-center py-6 px-5 mt-16 text-base shadow-inner">
+        <p class="my-2">For further assistance or more information, please contact:</p>
+        <p class="my-2">+91 987-654-3210 (Example Contact)</p>
+        <p class="my-2">&copy; 2025 Amity University. All rights reserved.</p>
     </footer>
-</section>
 </body>
 </html>
