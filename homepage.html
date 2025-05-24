@@ -97,6 +97,7 @@
             <ul class="flex flex-col md:flex-row justify-center gap-6 md:gap-10 list-none p-0 m-0">
                 <li><a href="#" class="text-white text-lg font-semibold font-montserrat no-underline">Home</a></li>
                 <li><a href="#guidelines" class="text-white text-lg font-semibold font-montserrat no-underline">Guidelines</a></li>
+                <li><a href="#proceedsection" class="text-white text-lg font-semibold font-montserrat no-underline">Course Registration</a></li>
             </ul>
         </nav>
     </header>
@@ -164,10 +165,56 @@
         <img src="Timetable.jpg" alt="Sample Timetable Structure" class="w-full max-w-3xl block mx-auto my-12 rounded-xl shadow-xl border-2 border-gray-300 transition-transform duration-300 hover:scale-101" />
     </section>
 
+    <section id="proceedSection"
+    class="content p-8 md:p-12 max-w-5xl mx-auto my-10 bg-white rounded-xl shadow-xl text-center">
+        <div class="flex items-center justify-center mb-6">
+            <input type="checkbox" id="guidelinesCheckbox" class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500 cursor-pointer">
+            <label for="guidelinesCheckbox" class="ml-3 text-lg font-semibold text-gray-800">I have read and understood the guidelines.</label>
+        </div>
+        <button
+            id="proceedButton"
+            class="bg-blue-700 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-800 transition duration-300 ease-in-out transform hover:-translate-y-1 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-opacity-75 uppercase tracking-wide text-lg opacity-50 cursor-not-allowed"
+            disabled
+        >
+            Proceed to Course Registration
+        </button>
+    </section>
+
     <footer class="bg-blue-900 text-white text-center py-6 px-5 mt-16 text-base shadow-inner">
         <p class="my-2">For further assistance or more information, please contact:</p>
         <p class="my-2">+91 987-654-3210 (Example Contact)</p>
         <p class="my-2">&copy; 2025 Amity University. All rights reserved.</p>
     </footer>
+
+    <script>
+        const guidelinesCheckbox = document.getElementById('guidelinesCheckbox');
+        const proceedButton = document.getElementById('proceedButton');
+
+        // Function to enable/disable the button based on checkbox state
+        function toggleProceedButton() {
+            if (guidelinesCheckbox.checked) {
+                proceedButton.disabled = false;
+                proceedButton.classList.remove('opacity-50', 'cursor-not-allowed');
+                proceedButton.classList.add('hover:bg-blue-800'); // Re-add hover effect
+            } else {
+                proceedButton.disabled = true;
+                proceedButton.classList.add('opacity-50', 'cursor-not-allowed');
+                proceedButton.classList.remove('hover:bg-blue-800'); // Remove hover effect when disabled
+            }
+        }
+
+        // Add event listener to the checkbox
+        guidelinesCheckbox.addEventListener('change', toggleProceedButton);
+
+        // Add event listener to the button to redirect
+        proceedButton.addEventListener('click', () => {
+            if (!proceedButton.disabled) {
+                window.location.href = 'course_registration_portal.html';
+            }
+        });
+
+        // Initial check when the page loads
+        document.addEventListener('DOMContentLoaded', toggleProceedButton);
+    </script>
 </body>
 </html>
