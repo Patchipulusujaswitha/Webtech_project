@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amity University - Flexible Timetable Registration</title>
+    <link rel="stylesheet" href="style.css">
+    </head>
+<body class="flex min-h-screen">
+    <aside class="sidebar">
+        <h2>Departments</h2>
+        <div class="sidebar-item active" data-dept="cse">Computer Science</div>
+        <div class="sidebar-item" data-dept="ece">Electronics & Comm. Eng.</div>
+        <div class="sidebar-item" data-dept="math">Mathematics</div>
+        <div class="sidebar-item" data-dept="chem">Chemistry</div>
+        <div class="sidebar-item" data-dept="phy">Physics</div>
+        <div class="sidebar-item" data-dept="lang">Languages</div>
+        <div class="sidebar-item" data-dept="nutrition">Nutrition</div>
+        <div class="sidebar-item" data-dept="psyc">Psychology</div>
+    </aside>
+    <main class="main-content flex-grow">
+        <header class="header">
+            <h1>Course Registration Portal</h1>
+            <h2>Available Courses for: <span id="selected-dept-title">Computer Science</span></h2>
+            <p class="text-lg font-semibold text-gray-700 mt-4">Total Credits: <span id="total-credits">0</span></p>
+        </header>
+        <section class="content-section">
+            <h2>Available Courses</h2>
+            <p class="text-gray-600 mb-4">Browse courses by department and select your preferred slots. The timetable below will update dynamically to show your selections and any potential conflicts.</p>
+            <div id="select-dept-message" class="hidden">
+                <h3>Please select a department from the sidebar to view available courses.</h3>
+            </div>
+            <div id="available-courses-list"></div>
+        </section>
+        <section class="content-section">
+            <h2>Your Registered Courses</h2>
+            <p class="text-gray-600 mb-4">Here are the courses you have successfully registered for. You can remove them if needed.</p>
+            <div id="registered-courses-list">
+                <p id="no-registered-message">You have not registered for any courses yet.</p>
+            </div>
+        </section>
+        <section class="content-section">
+            <h2>Live Timetable</h2>
+            <p class="text-gray-600 mb-4">This interactive timetable visualizes your selected courses. Green cells are registered, yellow are highlighted selections, grey are frozen (unavailable due to conflicts), and red indicates a direct conflict.</p>
+            <div class="timetable-container">
+                <table class="timetable" id="live-timetable">
+                    <thead>
+                        <tr>
+                            <th rowspan="2" colspan="2">Day</th>
+                            <th colspan="2" class="time-slot-header">9:00-10:45 AM</th>
+                            <th colspan="2" class="time-slot-header">10:50 AM-12:35 PM</th>
+                            <th rowspan="2">12:35-1:15 PM<br>(LUNCH)</th>
+                            <th colspan="2" class="time-slot-header">1:15 PM-3:00 PM</th>
+                            <th colspan="2" class="time-slot-header">3:05 PM-4:50 PM</th>
+                        </tr>
+                        <tr>
+                            <th class="slot-type-header">9:00-9:50</th>
+                            <th class="slot-type-header">9:55-10:45</th>
+                            <th class="slot-type-header">10:50-11:40</th>
+                            <th class="slot-type-header">11:45-12:35</th>
+                            <th class="slot-type-header">1:15-2:05</th>
+                            <th class="slot-type-header">2:10-3:00</th>
+                            <th class="slot-type-header">3:05-3:55</th>
+                            <th class="slot-type-header">4:00-4:50</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="2" class="day-header">MON</td>
+                            <td class="slot-type-header">Theory</td>
+                            <td id="mon-T1A" class="time-slot" data-day="MON" data-time-block="T1A"></td> <td id="mon-T1B" class="time-slot" data-day="MON" data-time-block="T1B"></td> <td id="mon-T2A" class="time-slot" data-day="MON" data-time-block="T2A"></td> <td id="mon-T2B" class="time-slot" data-day="MON" data-time-block="T2B"></td> <td rowspan="2" class="lunch-slot"></td>
+                            <td id="mon-T3A" class="time-slot" data-day="MON" data-time-block="T3A"></td> <td id="mon-T3B" class="time-slot" data-day="MON" data-time-block="T3B"></td> <td id="mon-T4A" class="time-slot" data-day="MON" data-time-block="T4A"></td> <td id="mon-T4B" class="time-slot" data-day="MON" data-time-block="T4B"></td> </tr>
+                        <tr>
+                            <td class="slot-type-header">Lab</td>
+                            <td colspan="2" id="mon-L1" class="time-slot" data-day="MON" data-time-block="L1"></td> <td colspan="2" id="mon-L2" class="time-slot" data-day="MON" data-time-block="L2"></td> <td colspan="2" id="mon-L3" class="time-slot" data-day="MON" data-time-block="L3"></td> <td colspan="2" id="mon-L4" class="time-slot" data-day="MON" data-time-block="L4"></td> </tr>
+                        <tr>
+                            <td rowspan="2" class="day-header">TUE</td>
+                            <td class="slot-type-header">Theory</td>
+                            <td id="tue-T1A" class="time-slot" data-day="TUE" data-time-block="T1A"></td>
+                            <td id="tue-T1B" class="time-slot" data-day="TUE" data-time-block="T1B"></td>
+                            <td id="tue-T2A" class="time-slot" data-day="TUE" data-time-block="T2A"></td>
+                            <td id="tue-T2B" class="time-slot" data-day="TUE" data-time-block="T2B"></td>
+                            <td rowspan="2" class="lunch-slot"></td>
+                            <td id="tue-T3A" class="time-slot" data-day="TUE" data-time-block="T3A"></td>
+                            <td id="tue-T3B" class="time-slot" data-day="TUE" data-time-block="T3B"></td>
+                            <td id="tue-T4A" class="time-slot" data-day="TUE" data-time-block="T4A"></td>
+                            <td id="tue-T4B" class="time-slot" data-day="TUE" data-time-block="T4B"></td>
+                        </tr>
+                        <tr>
+                            <td class="slot-type-header">Lab</td>
+                            <td colspan="2" id="tue-L1" class="time-slot" data-day="TUE" data-time-block="L1"></td>
+                            <td colspan="2" id="tue-L2" class="time-slot" data-day="TUE" data-time-block="L2"></td>
+                            <td colspan="2" id="tue-L3" class="time-slot" data-day="TUE" data-time-block="L3"></td>
+                            <td colspan="2" id="tue-L4" class="time-slot" data-day="TUE" data-time-block="L4"></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2" class="day-header">WED</td>
+                            <td class="slot-type-header">Theory</td>
+                            <td id="wed-T1A" class="time-slot" data-day="WED" data-time-block="T1A"></td>
+                            <td id="wed-T1B" class="time-slot" data-day="WED" data-time-block="T1B"></td>
+                            <td id="wed-T2A" class="time-slot" data-day="WED" data-time-block="T2A"></td>
+                            <td id="wed-T2B" class="time-slot" data-day="WED" data-time-block="T2B"></td>
+                            <td rowspan="2" class="lunch-slot"></td>
+                            <td id="wed-T3A" class="time-slot" data-day="WED" data-time-block="T3A"></td>
+                            <td id="wed-T3B" class="time-slot" data-day="WED" data-time-block="T3B"></td>
+                            <td id="wed-T4A" class="time-slot" data-day="WED" data-time-block="T4A"></td>
+                            <td id="wed-T4B" class="time-slot" data-day="WED" data-time-block="T4B"></td>
+                        </tr>
+                        <tr>
+                            <td class="slot-type-header">Lab</td>
+                            <td colspan="2" id="wed-L1" class="time-slot" data-day="WED" data-time-block="L1"></td>
+                            <td colspan="2" id="wed-L2" class="time-slot" data-day="WED" data-time-block="L2"></td>
+                            <td colspan="2" id="wed-L3" class="time-slot" data-day="WED" data-time-block="L3"></td>
+                            <td colspan="2" id="wed-L4" class="time-slot" data-day="WED" data-time-block="L4"></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2" class="day-header">THU</td>
+                            <td class="slot-type-header">Theory</td>
+                            <td id="thu-T1A" class="time-slot" data-day="THU" data-time-block="T1A"></td>
+                            <td id="thu-T1B" class="time-slot" data-day="THU" data-time-block="T1B"></td>
+                            <td id="thu-T2A" class="time-slot" data-day="THU" data-time-block="T2A"></td>
+                            <td id="thu-T2B" class="time-slot" data-day="THU" data-time-block="T2B"></td>
+                            <td rowspan="2" class="lunch-slot"></td>
+                            <td id="thu-T3A" class="time-slot" data-day="THU" data-time-block="T3A"></td>
+                            <td id="thu-T3B" class="time-slot" data-day="THU" data-time-block="T3B"></td>
+                            <td id="thu-T4A" class="time-slot" data-day="THU" data-time-block="T4A"></td>
+                            <td id="thu-T4B" class="time-slot" data-day="THU" data-time-block="T4B"></td>
+                        </tr>
+                        <tr>
+                            <td class="slot-type-header">Lab</td>
+                            <td colspan="2" id="thu-L1" class="time-slot" data-day="THU" data-time-block="L1"></td>
+                            <td colspan="2" id="thu-L2" class="time-slot" data-day="THU" data-time-block="L2"></td>
+                            <td colspan="2" id="thu-L3" class="time-slot" data-day="THU" data-time-block="L3"></td>
+                            <td colspan="2" id="thu-L4" class="time-slot" data-day="THU" data-time-block="L4"></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2" class="day-header">FRI</td>
+                            <td class="slot-type-header">Theory</td>
+                            <td id="fri-T1A" class="time-slot" data-day="FRI" data-time-block="T1A"></td>
+                            <td id="fri-T1B" class="time-slot" data-day="FRI" data-time-block="T1B"></td>
+                            <td id="fri-T2A" class="time-slot" data-day="FRI" data-time-block="T2A"></td>
+                            <td id="fri-T2B" class="time-slot" data-day="FRI" data-time-block="T2B"></td>
+                            <td rowspan="2" class="lunch-slot"></td>
+                            <td id="fri-T3A" class="time-slot" data-day="FRI" data-time-block="T3A"></td>
+                            <td id="fri-T3B" class="time-slot" data-day="FRI" data-time-block="T3B"></td>
+                            <td id="fri-T4A" class="time-slot" data-day="FRI" data-time-block="T4A"></td>
+                            <td id="fri-T4B" class="time-slot" data-day="FRI" data-time-block="T4B"></td>
+                        </tr>
+                        <tr>
+                            <td class="slot-type-header">Lab</td>
+                            <td colspan="2" id="fri-L1" class="time-slot" data-day="FRI" data-time-block="L1"></td>
+                            <td colspan="2" id="fri-L2" class="time-slot" data-day="FRI" data-time-block="L2"></td>
+                            <td colspan="2" id="fri-L3" class="time-slot" data-day="FRI" data-time-block="L3"></td>
+                            <td colspan="2" id="fri-L4" class="time-slot" data-day="FRI" data-time-block="L4"></td>
+                        </tr>
+                    </tbody>
+                </table>    
+                <br>
+                <button id="printTimetableBtn" class="btn-print">Print Timetable</button>
+            </div>
+        </section>
+        
+        <section class="content-section">
+            <p>Complete Registraion process??</p>
+            <button onclick="window.location.href='ThankYou.html'" class="btn-end">END!</button>
+        </section>
+        
+    </main>
+    
+    <div id="messageBox" class="hidden">
+        <div class="message-content">
+            <h3 id="messageTitle"></h3>
+            <p id="messageText"></p>
+            <button onclick="hideMessageBox()">OK</button>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
