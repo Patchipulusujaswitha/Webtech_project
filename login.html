@@ -3,11 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amity University - Student Login</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Amity University - Student Portal</title>
     <style>
-        /* Custom Tailwind-like animations for background */
+        body {
+            font-family: 'Arial', sans-serif;
+        }
+        .page-title, .homepage-container h1 {
+            font-family: 'Arial Black', sans-serif;
+        }
+
         @keyframes gradient-xy {
             0%, 100% { background-position: 0% 0%; }
             50% { background-position: 100% 100%; }
@@ -16,107 +20,461 @@
             animation: gradient-xy 15s ease infinite;
             background-size: 400% 400%;
         }
-        /* Ensure the body uses the Inter font family */
+
         body {
-            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(to bottom right, #1e3a8a, #1f40af, #1e40af);
+            padding: 1rem;
+            margin: 0;
+        }
+
+        .auth-container {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 28rem;
+            position: relative;
+            overflow: hidden;
+            transform: scale(1);
+            transition: transform 0.3s ease-in-out;
+        }
+        .auth-container:hover {
+            transform: scale(1.05);
+        }
+        @media (min-width: 768px) {
+            .auth-container {
+                padding: 2.5rem;
+            }
+        }
+
+        .top-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0.5rem;
+            background-color: #f59e0b;
+            border-top-left-radius: 0.75rem;
+            border-top-right-radius: 0.75rem;
+        }
+
+        .amity-logo {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 1.5rem;
+            border-radius: 0.375rem;
+        }
+
+        .page-title {
+            font-size: 1.875rem;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            letter-spacing: 0.025em;
+            text-transform: uppercase;
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+        @media (min-width: 768px) {
+            .page-title {
+                font-size: 2.25rem;
+            }
+        }
+
+        .page-title-underline {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4rem;
+            height: 0.25rem;
+            background-color: #f59e0b;
+            border-radius: 9999px;
+        }
+
+        .form-spacing > *:not(:first-child) {
+            margin-top: 1rem;
+        }
+
+        .error-message {
+            color: #dc2626;
+            text-align: center;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        .hidden {
+            display: none;
+        }
+
+        .form-label {
+            display: block;
+            color: #374151;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.5rem 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease-in-out;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: transparent;
+            box-shadow: 0 0 0 2px #3b82f6;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background-color: #f59e0b;
+            color: #1e3a8a;
+            font-weight: bold;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease-in-out;
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            outline: none;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+            border: none;
+            cursor: pointer;
+        }
+        .submit-btn:hover {
+            background-color: #d97706;
+            transform: translateY(-0.25rem);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        .submit-btn:focus {
+            box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.75);
+        }
+
+        .nav-section {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .nav-section h2 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+
+        .nav-btn {
+            background-color: #1d4ed8;
+            color: #fff;
+            font-weight: bold;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease-in-out;
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            outline: none;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+            border: none;
+            cursor: pointer;
+        }
+        .nav-btn:hover {
+            background-color: #1e40af;
+            transform: translateY(-0.25rem);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        .nav-btn:focus {
+            box-shadow: 0 0 0 2px rgba(29, 78, 216, 0.75);
+        }
+
+        .homepage-container {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 40rem;
+            text-align: center;
+        }
+        .homepage-container h1 {
+            font-size: 2.5rem;
+            color: #1e3a8a;
+            margin-bottom: 1rem;
+        }
+        .homepage-container p {
+            font-size: 1.125rem;
+            color: #374151;
+            margin-bottom: 1.5rem;
         }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 animate-gradient-xy p-4 font-inter">
+<body class="animate-gradient-xy">
 
-    <div class="bg-white p-6 sm:p-8 md:p-10 rounded-3xl shadow-2xl w-full max-w-md relative overflow-hidden transform transition-all duration-300 hover:scale-105 border border-gray-100">
-        <div class="absolute top-0 left-0 w-full h-2 bg-yellow-500 rounded-t-3xl"></div>
+    <div id="login-view" class="auth-container">
+        <div class="top-bar"></div>
 
         <img
-            src="amity.jpg"
+            src="https://api.bangalorestudy.com:3000/college_logo/logo1697698801434.png"
             alt="Amity Logo"
-            class="mx-auto mb-6 w-32 h-auto"
+            class="amity-logo"
+            width=200px
+            height=100px
         />
 
-        <h1 class="text-3xl md:text-4xl font-extrabold text-blue-900 mb-6 text-center tracking-wide uppercase relative pb-3">
+        <h1 class="page-title">
             Login
-            <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-16 h-1 bg-yellow-500 rounded-full"></span>
+            <span class="page-title-underline"></span>
         </h1>
 
-        <form id="loginForm" class="space-y-5">
-            <p id="errorMessage" class="text-red-600 text-center text-sm font-semibold hidden rounded-md py-2 bg-red-50"></p>
-
+        <form id="loginForm" class="form-spacing">
+            <p id="loginErrorMessage" class="error-message hidden"></p>
             <div>
-                <label for="enrollmentNumber" class="block text-gray-700 text-sm font-semibold mb-2">Enrollment Number:</label>
+                <label for="loginEnrollmentNumber" class="form-label">Enrollment Number:</label>
                 <input
                     type="text"
-                    id="enrollmentNumber"
+                    id="loginEnrollmentNumber"
                     required
-                    placeholder="e.g., AXXXXX or 001-A-123456"
-                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 shadow-sm"
+                    placeholder="e.g., A866000000000"
+                    class="form-input"
                 />
             </div>
-
             <div>
-                <label for="password" class="block text-gray-700 text-sm font-semibold mb-2">Password:</label>
+                <label for="loginPassword" class="form-label">Password:</label>
                 <input
                     type="password"
-                    id="password"
+                    id="loginPassword"
                     required
                     placeholder="Enter your password"
-                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 shadow-sm"
+                    class="form-input"
                 />
             </div>
 
             <button
                 type="submit"
-                class="w-full bg-yellow-500 text-blue-900 font-bold py-3 px-4 rounded-lg hover:bg-yellow-600 transition duration-300 ease-in-out transform hover:-translate-y-1 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-75 uppercase tracking-wide text-lg"
+                class="submit-btn"
             >
                 Submit
             </button>
         </form>
 
-        <div class="mt-8 text-center">
-            <h2 class="text-lg font-semibold text-gray-800 mb-4">Don't have an account?</h2>
+        <div class="nav-section">
+            <h2>Don't have an account?</h2>
             <button
-                onclick="window.location.href='register.html'"
-                class="bg-blue-700 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-800 transition duration-300 ease-in-out transform hover:-translate-y-1 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-opacity-75 uppercase tracking-wide text-md"
+                onclick="renderPage('register')"
+                class="nav-btn"
             >
                 Register
             </button>
         </div>
     </div>
 
+    <div id="register-view" class="auth-container hidden">
+        <div class="top-bar"></div>
+
+        <img
+            src="https://api.bangalorestudy.com:3000/college_logo/logo1697698801434.png"
+            alt="Amity Logo"
+            class="amity-logo"
+            width=200px
+            height=100px
+        />
+
+        <h1 class="page-title">
+            Sign Up
+            <span class="page-title-underline"></span>
+        </h1>
+
+        <form id="registerForm" class="form-spacing">
+            <p id="registerErrorMessage" class="error-message hidden"></p>
+
+            <div>
+                <label for="fullName" class="form-label">Full Name:</label>
+                <input
+                    type="text"
+                    id="fullName"
+                    required
+                    placeholder="Enter your full name"
+                    class="form-input"
+                />
+            </div>
+
+            <div>
+                <label for="enrollmentNumber" class="form-label">Enrollment Number:</label>
+                <input
+                    type="text"
+                    id="enrollmentNumber"
+                    required
+                    placeholder="e.g., A866000000000"
+                    class="form-input"
+                />
+            </div>
+
+            <div>
+                <label for="course" class="form-label">Course:</label>
+                <input
+                    type="text"
+                    id="course"
+                    required
+                    placeholder="e.g., B.Tech Computer Science"
+                    class="form-input"
+                />
+            </div>
+
+            <div>
+                <label for="password" class="form-label">Password:</label>
+                <input
+                    type="password"
+                    id="password"
+                    required
+                    placeholder="Create a password"
+                    class="form-input"
+                />
+            </div>
+
+            <button
+                type="submit"
+                class="submit-btn"
+            >
+                Register Account
+            </button>
+        </form>
+
+        <div class="nav-section">
+            <h2>Already have an account?</h2>
+            <button
+                onclick="renderPage('login')"
+                class="nav-btn"
+            >
+                Login
+            </button>
+        </div>
+    </div>
+
+    <div id="homepage-view" class="homepage-container hidden">
+        <div class="top-bar"></div>
+        <img
+            src="https://api.bangalorestudy.com:3000/college_logo/logo1697698801434.png"
+            alt="Amity Logo"
+            class="amity-logo"
+            width=200px
+            height=100px
+        />
+        <h1 class="page-title">Welcome, <span id="homepageUserName">Student</span>!</h1>
+        <p>You have successfully logged in to the Amity University Student Portal.</p>
+        <p>Click here to navigate to the guidelines page.</p>
+        <button onclick="window.location.href='homepage.html'" class="nav-btn">Start</button>
+        <div class="nav-section">
+            <button onclick="logout()" class="nav-btn">Logout</button>
+        </div>
+    </div>
+
     <script>
-        // Get references to the form elements and error message display
-        const loginForm = document.getElementById('loginForm');
-        const enrollmentNumberInput = document.getElementById('enrollmentNumber');
-        const passwordInput = document.getElementById('password');
-        const errorMessageDisplay = document.getElementById('errorMessage');
+        function renderPage(pageName) {
+            document.getElementById('login-view').classList.add('hidden');
+            document.getElementById('register-view').classList.add('hidden');
+            document.getElementById('homepage-view').classList.add('hidden');
 
-        // Add an event listener for the form submission
-        loginForm.addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevent the default form submission behavior
+            document.getElementById('loginErrorMessage').classList.add('hidden');
+            document.getElementById('registerErrorMessage').classList.add('hidden');
 
-            // Retrieve the values from the input fields
-            const enrollmentNumber = enrollmentNumberInput.value;
-            const password = passwordInput.value;
+            document.getElementById('loginForm').reset();
+            document.getElementById('registerForm').reset();
 
-            // Hide any previously displayed error messages
-            errorMessageDisplay.classList.add('hidden');
 
-            // Retrieve user data from localStorage. If no data exists, initialize as an empty object.
+            if (pageName === 'login') {
+                document.getElementById('login-view').classList.remove('hidden');
+            } else if (pageName === 'register') {
+                document.getElementById('register-view').classList.remove('hidden');
+            } else if (pageName === 'homepage') {
+                const loggedInUserEnrollment = localStorage.getItem('loggedInUserEnrollment');
+                const users = JSON.parse(localStorage.getItem('users')) || {};
+                const user = users[loggedInUserEnrollment];
+                if (user && user.fullName) {
+                    document.getElementById('homepageUserName').textContent = user.fullName;
+                } else {
+                    document.getElementById('homepageUserName').textContent = 'Student';
+                }
+                document.getElementById('homepage-view').classList.remove('hidden');
+            }
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const enrollmentNumber = document.getElementById('loginEnrollmentNumber').value;
+            const password = document.getElementById('loginPassword').value;
+            const errorMessage = document.getElementById('loginErrorMessage');
+
+            errorMessage.classList.add('hidden');
+
             const users = JSON.parse(localStorage.getItem('users')) || {};
-            const user = users[enrollmentNumber]; // Get the user object based on the enrollment number
+            const user = users[enrollmentNumber];
 
-            // Check if the user exists and if the provided password matches
             if (!user || user.password !== password) {
-                // If login fails, display an error message
-                errorMessageDisplay.textContent = 'Invalid Enrollment Number or Password.';
-                errorMessageDisplay.classList.remove('hidden');
-                return; // Stop the function execution
+                errorMessage.textContent = 'Invalid Enrollment Number or Password.';
+                errorMessage.classList.remove('hidden');
+                return;
             }
 
-            // If login is successful:
-            // Store the logged-in user's enrollment number in localStorage for later use (e.g., on the homepage)
             localStorage.setItem('loggedInUserEnrollment', enrollmentNumber);
-            // Redirect the user to the homepage
-            window.location.href = 'homepage.html';
+            renderPage('homepage');
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const fullName = document.getElementById('fullName').value;
+            const enrollmentNumber = document.getElementById('enrollmentNumber').value;
+            const course = document.getElementById('course').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('registerErrorMessage');
+
+            errorMessage.classList.add('hidden');
+
+            if (!fullName || !enrollmentNumber || !course || !password) {
+                errorMessage.textContent = 'All fields are required.';
+                errorMessage.classList.remove('hidden');
+                return;
+            }
+
+            let users = JSON.parse(localStorage.getItem('users')) || {};
+
+            if (users[enrollmentNumber]) {
+                errorMessage.textContent = 'Enrollment Number already registered. Please login or use a different number.';
+                errorMessage.classList.remove('hidden');
+                return;
+            }
+
+            users[enrollmentNumber] = {
+                fullName: fullName,
+                course: course,
+                password: password
+            };
+            localStorage.setItem('users', JSON.stringify(users));
+
+            renderPage('login');
+        });
+
+        function logout() {
+            localStorage.removeItem('loggedInUserEnrollment');
+            renderPage('login');
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const loggedInUser = localStorage.getItem('loggedInUserEnrollment');
+            if (loggedInUser) {
+                renderPage('homepage');
+            } else {
+                renderPage('login');
+            }
         });
     </script>
 </body>
